@@ -133,7 +133,7 @@ You can make your own liquid type in your map's Settings.Liquids folder. For exa
 	),
 
 	Move: typeof(
-		--[[Used to move PVInstances. (Parts or Models)
+		--[[Used to move PVInstances (Parts or Models).
 
 Example:
 
@@ -142,10 +142,19 @@ Example:
 ]]
 		function(self: MapLib, moveable: PVInstance, movement: Vector3, duration: number?) end
 	),
-	--MoveModel: (MapLib, PVInstance, Vector3, number?) -> (),
-	--MovePart: (MapLib, PVInstance, Vector3, number?) -> (),
+	MoveModel: typeof(
+		--Used to move Models. Use :Move() instead.
+		@deprecated
+		function(self: MapLib, moveable: Model, movement: Vector3, duration: number?) end
+	),
+	MovePart: typeof(
+		--Used to move Parts. Use :Move() instead.
+		@deprecated
+		function(self: MapLib, moveable: BasePart, movement: Vector3, duration: number?) end
+	),
+	
 	MoveRelative: typeof(
-		--[[Used to move PVInstances. (Parts or Models)
+		--[[Used to move PVInstances (Parts or Models) along their axis. 
 
 Example:
 
@@ -154,8 +163,16 @@ Example:
 ]]
 		function(self: MapLib, moveable: PVInstance, movement: Vector3, duration: number?) end
 	),
-	--MoveModelLocal: (MapLib, PVInstance, Vector3, number?) -> (),
-	--MovePartLocal: (MapLib, PVInstance, Vector3, number?) -> (),
+	MoveModelLocal: typeof(
+		--Used to move Models along their axis. Use :Move() instead.
+		@deprecated
+		function(self: MapLib, moveable: Model, movement: Vector3, duration: number?) end
+	),
+	MovePartLocal: typeof(
+		--Used to move Parts along their axis. Use :Move() instead.
+		@deprecated
+		function(self: MapLib, moveable: BasePart, movement: Vector3, duration: number?) end
+	),
 
 	GetPlayers: typeof(
 		--This method returns a table containing players currently in a map.
@@ -248,7 +265,8 @@ Janitor does not have the ability to completly clear references if they are defi
 
 export type SkillFeature = {
 	ToggleSliding: typeof(
-		--[[This function can be used for toggling sliding on or off during a map.
+		--[[CLIENT SIDED ONLY
+		This function can be used for toggling sliding on or off during a map.
 
 Example:
 
@@ -257,14 +275,12 @@ Example:
 ‎ ‎ ‎ ‎ SkillsFeature:ToggleSliding(false)
 ‎ ‎ ‎ ‎ task.wait(5)
 ‎ ‎ ‎ ‎ SkillsFeature:ToggleSliding(true)
-
-TIP
-I think this can toggle for an individual player or for all players depending on if you use this in a server or client sided script.
 ]]
 		function(self: SkillFeature, value: boolean) end
 	),
 	ToggleAirDive: typeof(
-		--[[This function can be used for toggling airdive on or off during a map.
+		--[[CLIENT SIDED ONLY
+		This function can be used for toggling airdive on or off during a map.
 
 Example:
 
@@ -422,8 +438,8 @@ export type PlayerUIFeature = {
 export type SettingsFeature = {
 	GetSetting: typeof(
 		--[[CLIENT SIDED ONLY
-This function can be used to get the value of a setting under map.Settings.
-
+This function can be used to get the value of any setting under map.Settings.
+This means any attribute under any descendant of map.Settings.
 Example:
 
 ‎ ‎ ‎ ‎ -- Changes the camera FOV to an arbitrary number and then sets it back to the saved settings value.
