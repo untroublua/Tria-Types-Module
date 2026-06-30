@@ -31,6 +31,8 @@ export type ButtonEventSignal = {
 	ConnectParallel: (ButtonEventSignal, func: ButtonEventSignalFn) -> RBXScriptConnection
 }
 
+export type Cleanable = () -> () | thread | Instance | RBXScriptConnection | Janitor | { Cleanable }
+
 export type AlertColorStrings = "white" | "red" | "green" | "blue" | "yellow" | "pink" | "cyan"
 
 export type MapLib = {
@@ -231,7 +233,7 @@ Janitor does not have the ability to completly clear references if they are defi
 ‎ ‎ ‎ ‎ janitor:Cleanup() -- Destroys the part and initates garbage collection
 
 ]]
-		function<T>(self: Janitor, task: T) return (nil :: any) :: T end
+		function(self: Janitor, task: Cleanable) return nil end
 	),
 	Cleanup: typeof(
 		-- Calls for the Janitor to cleanup up all the tasks it was given.	
