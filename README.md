@@ -19,6 +19,9 @@ local MapLib = MapLib :: types.MapLib -- disable this line before updating your 
 
 It should work like this.
 
+If you don't have the require and the type cast lines disabled before updating your map model, your map **will** error.
+You can disable lines by selecting them and pressing `Ctrl+/`.
+
 ## How can I use the `map` instance autofill?
 Make sure your map is a `Model`, then name the model `map` and make sure the map model is directly under workspace, instead of inside some folder or something
 
